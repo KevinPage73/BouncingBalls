@@ -18,20 +18,18 @@ const BOX_WIDTH  = 200;  // textbox dimensions
 const BOX_HEIGHT = 100;
 
 var balls = [];
+let img; 
 var sound;
 
 function preload() {
 
-  //sound = loadSound("apollo11.mp3");  // preload the sound file
+  sound = loadSound("apollo11.mp3");  // preload the sound file
 }
 
 function setup() {
-  image = loadImage('night-sky.jpg');
-
   createCanvas(windowWidth, windowHeight);
+  img = loadImage('night-sky.jpg');
 
-
-  
   noStroke();
   
   //sound.play();    // play the audio file once
@@ -41,16 +39,17 @@ function setup() {
   	balls[ballNum] = new Ball();  
   }
   
-  ball1 = new Ball(); 
+  ball1 = new Ball();
+  ball1.setSize(75); 
 }
 
 function createBox() {
   // prepare a box first
-  strokeWeight(4);
-  rect(width/2 - BOX_WIDTH/2,  0, BOX_WIDTH, BOX_HEIGHT);
+  //strokeWeight(4);
+  //rect(width/2 - BOX_WIDTH/2,  0, BOX_WIDTH, BOX_HEIGHT);
   
   textSize(32);           // size of the text (pixels)
-  fill(0, 102, 153);      // fill() takes R,G,B values as the color
+  //fill(0, 102, 153);      // fill() takes R,G,B values as the color
   // draw the text in the box (x,y,width,height) with the color in fill()
   textAlign(CENTER);
   text('Hello World!', width/2, BOX_HEIGHT/2);   
@@ -58,9 +57,9 @@ function createBox() {
 }
 
 function draw() {
-  image(image, 0, 0);
-
   background(255);
+  
+  image(img, 0, 0, width, height);
   createBox();
   
   //ball1.display(); 
@@ -90,10 +89,10 @@ class Ball { // Constructor
     this.speedY = random(-5, 5);
     this.speedX = random(-5, 5);
     
-    this.size = 20 + random(80);
+    this.size = random(50);
     
     // How transparent the ball is
-    this.alpha = 100
+    this.alpha = 75
     
     // RGB values for color
     this.red   = random(255);
@@ -156,6 +155,10 @@ class Ball { // Constructor
     
       this.speedX = -this.speedX;
       this.speedY = -this.speedY;    
+  }
+  
+  setSize(size){
+    this.size = size; 
   }
   
   moveBall() {
